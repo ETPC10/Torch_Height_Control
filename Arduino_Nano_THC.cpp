@@ -38,11 +38,10 @@ void movetorch(bool dir, int steps) {
 }// END of movetorch() 
 
 void mmts( int pos_new) { //function for math stuff. 
-	int stepsmm = 273; //Machine Specific 
-	int steps;
+	float stepsmm = 273; //Machine Specific 
 	float way;
-	int softlimit = 5; //Maximum Way torch will travel up. Starts in the middel of it. i.e. if its set to 5 it will travel 2.5mm up 
-	bool dir ;
+	int steps, softlimit = 5; //Maximum Way torch will travel up. Starts in the middel of it. i.e. if its set to 5 it will travel 2.5mm up 
+	bool dir;
 
 	way = pos_new - pos_old;  //Calcuates the way to travel 
 	
@@ -75,8 +74,6 @@ void loop() {
 	bool lp, hp, okp;
 	float delta = 0.05; //Way torch travels per run. Must be bigger than 1/(Steps per mm of machine)
 
-	
-
 	//delay(20); //Slows down everything to avoid too fast actions, probably unnecessary.
 
 	okp = digitalRead(okPin);//debounce
@@ -85,23 +82,22 @@ void loop() {
 	 //If Arc is OK
 
 		wasok = true; //Sets wasok to true, required for later reseting hight to 0;
-
-
-		//reads low-pin 
+								
+					  //reads low-pin 
 		lp = digitalRead(lowPin);//debounce
 		delay(5);
 
-		if (digitalRead((lowPin) == lp) && (lp == 1)) { //True if not bouncing and pin on high
-			mmts((pos_old+delta));  //lifts torch
-		}
+			if (digitalRead((lowPin) == lp) && (lp == 1)) { //True if not bouncing and pin on high
+				mmts((pos_old+delta));  //lifts torch
+			}
 
-		else { //Else avoids dual movement in one code run, maybe suppresses oscillations 
+		
 
-		   //reads hight-pin  
-			hp = digitalRead(highPin);//debounce
-			delay(5);
+						//reads hight-pin  
+		hp = digitalRead(highPin);//debounce
+		delay(5);
 
-			if (digitalRead((highPin) == hp) && (hp == 1)) { //True if not bouncing and pin on high
+			if (digitalRead((highPin) == hp) && (hp == 1)) { //True if not bouncing and pin on highs
 				mmts((pos_old - delta));  //lowers torch
 			}
 		}
