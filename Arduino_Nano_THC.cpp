@@ -85,19 +85,19 @@ void loop() {
 								
 					  //reads low-pin 
 		lp = digitalRead(lowPin);//debounce
-		delay(5);
-
-			if (digitalRead((lowPin) == lp) && (lp == 1)) { //True if not bouncing and pin on high
+		if (lp == true) { 
+			delay(5);
+			if (digitalRead((lowPin)) == lp) { //True if not bouncing and pin on high
 				mmts((pos_old+delta));  //lifts torch
 			}
-
+		}
 		
 
 						//reads hight-pin  
 		hp = digitalRead(highPin);//debounce
-		delay(5);
-
-			if (digitalRead((highPin) == hp) && (hp == 1)) { //True if not bouncing and pin on highs
+		if(hp==true){
+			delay(5);
+			if (digitalRead((highPin) == hp)) { //True if not bouncing and pin on highs
 				mmts((pos_old - delta));  //lowers torch
 			}
 		}
