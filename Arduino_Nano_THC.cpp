@@ -6,7 +6,7 @@
 
 
 float pos_old = 0; //Stores hight of torch. 
-bool wasok = 0; //true = torch was already moved, false = torch was not moved.
+
 
 void setup() {
 	pinMode(2, INPUT);   //Torch to low
@@ -22,7 +22,7 @@ void movetorch(bool dir, int steps) {
 	int DirPin = 12;
 	int i;
 
-	if (dir = 1) {                  //Change if direction is reversed (1 form 2 spots)
+	if (dir = 1) {                  //Change if direction is reversed
 		digitalWrite(DirPin, HIGH);	//UP		
 	}
 	else {
@@ -38,7 +38,7 @@ void movetorch(bool dir, int steps) {
 }// END of movetorch() 
 
 void mmts( int pos_new) { //function for math stuff. 
-	float stepsmm = 273; //Machine Specific 
+	float stepsmm = 273;  //Machine Specific 
 	float way;
 	int steps, softlimit = 5; //Maximum Way torch will travel up. Starts in the middel of it. i.e. if its set to 5 it will travel 2.5mm up 
 	bool dir;
@@ -81,7 +81,7 @@ void loop() {
 	if (digitalRead((okPin) == okp) && (okp == 1)) { //True if not bouncing and pin on high
 	 //If Arc is OK
 
-		wasok = true; //Sets wasok to true, required for later reseting hight to 0;
+		
 								
 					  //reads low-pin 
 		lp = digitalRead(lowPin);//debounce
@@ -104,9 +104,8 @@ void loop() {
 	}
 	else {
 		//if arc is not ok, torch is off (should be at least)
-		if (wasok == true) {
+		if (pos_old != 0) {
 			mmts(0); //Moves torche back to 0;
-			wasok = false;
 		}
 
 	}
