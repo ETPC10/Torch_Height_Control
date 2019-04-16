@@ -37,10 +37,11 @@ void movetorch(bool dir, int steps) {
 	}
 }// END of movetorch() 
 
-void mmts( int pos_new) { //function for math stuff. 
+void mmts(int pos_new) { //function for math stuff. 
 	float stepsmm = 273;  //Machine Specific 
 	float way;
-	int steps, softlimit = 5; //Maximum Way torch will travel up. Starts in the middel of it. i.e. if its set to 5 it will travel 2.5mm up 
+	int steps;
+	float softlimit = 2.5; //Maximum Way torch will travel up or down from starting point. 
 	bool dir;
 
 	way = pos_new - pos_old;  //Calcuates the way to travel 
@@ -54,7 +55,7 @@ void mmts( int pos_new) { //function for math stuff.
 		way = way * (-1);
 	}
 
-	if (pos_new < (softlimit*0.5)) {	//checks if move is legal
+	if (pos_new < softlimit) {	//checks if move is legal
 		steps = way * stepsmm;
 		movetorch(dir, steps);
 		pos_old = pos_new;
