@@ -35,7 +35,7 @@ void movetorch(bool dir, int steps) {
       digitalWrite(DirPin, LOW);
       delay(1); //slows down movement of torch, may depend on stepper driver 
   }
-  digitalWrite(DirPin, LOW) //Pin must be 0 at end of movement
+  digitalWrite(DirPin, LOW); //Pin must be 0 at end of movement
 }// END of movetorch() 
 
 void mmts(int pos_new) { //function for math stuff. 
